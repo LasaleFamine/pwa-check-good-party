@@ -1,0 +1,140 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+
+
+<dom-module id="good-party">
+  <template>
+    <style>
+       :host {
+        display: block;
+      }
+
+      /*
+      Max width before this PARTICULAR table gets nasty
+      This query will take effect for any screen smaller than 760px
+      and also iPads specifically.
+      */
+      @media
+      only screen and (max-width: 760px),
+      (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+        /* Force table to not be like tables anymore */
+        table, thead, tbody, th, td, tr {
+          display: block;
+        }
+
+        /* Hide table headers (but not display: none;, for accessibility) */
+        thead tr {
+          position: absolute;
+          top: -9999px;
+          left: -9999px;
+        }
+
+        tr { border: 1px solid #ccc; }
+
+        td {
+          /* Behave  like a "row" */
+          border: none;
+          border-bottom: 1px solid #eee;
+          position: relative;
+          padding-left: 50%;
+        }
+
+        td:before {
+          /* Now like a table header */
+          position: absolute;
+          /* Top/left values mimic padding */
+          top: 6px;
+          left: 6px;
+          width: 45%;
+          padding-right: 10px;
+          white-space: nowrap;
+        }
+
+        /*
+        Label the data
+        */
+        td:nth-of-type(1):before { content: "Title"; }
+        td:nth-of-type(2):before { content: "Count"; }
+        td:nth-of-type(3):before { content: "Link"; }
+        td:nth-of-type(4):before { content: "Favorite Color"; }
+        td:nth-of-type(5):before { content: "Wars of Trek?"; }
+        td:nth-of-type(6):before { content: "Porn Name"; }
+        td:nth-of-type(7):before { content: "Date of Birth"; }
+        td:nth-of-type(8):before { content: "Dream Vacation City"; }
+        td:nth-of-type(9):before { content: "GPA"; }
+        td:nth-of-type(10):before { content: "Arbitrary Data"; }
+      }
+    </style>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Count</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <template is="dom-repeat" items="[[reactions]]" as="reaction">
+          <tr>
+            <td>[[reaction.title]]</td>
+            <td>[[reaction.reactions]]</td>
+            <td><a href$="[[reaction.url]]" target="_blank">[[reaction.url]]</a></td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </template>
+
+  <script>
+    class MyApplication extends Polymer.Element {
+      static get is() {
+        return 'good-party';
+      }
+      static get properties() {
+        return {
+          reactions: {
+            type: Array,
+            value: []
+          }
+        };
+      }
+
+      connectedCallback() {
+        this.fetchReactions();
+        super.connectedCallback();
+      }
+
+      fetchReactions() {
+        const request = new Request('https://api.github.com/repos/milano-js/good-party-2017/issues', {
+          headers: new Headers({
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.squirrel-girl-preview'
+          })
+        });
+
+        unfetch(request)
+          .then(res => res.json())
+          .then(res => {
+            const reactions = res
+              .map(issue => {
+                return {
+                  title: issue.title,
+                  url: issue.html_url,
+                  reactions: issue.reactions['+1']
+                }
+              })
+              .sort((a, b) => b.reactions - a.reactions)
+
+            this.set('reactions', reactions);
+            reactions.forEach((react, i) => {
+              console.log(`${i + 1} place:`, react)
+            })
+          })
+      }
+    }
+
+    window.customElements.define(MyApplication.is, MyApplication);
+  </script>
+</dom-module>

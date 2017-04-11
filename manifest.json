@@ -1,0 +1,7 @@
+{
+  "name": "pwa-check-good-party",
+  "short_name": "pwa-check-good-party",
+  "description": "Check the MilanoJs Good Party 2017 talks",
+  "start_url": "/",
+  "display": "standalone"
+}
