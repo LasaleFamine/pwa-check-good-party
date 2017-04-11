@@ -1,6 +1,6 @@
 # \<pwa-check-good-party\>
 > Built with Polymer CLI and deployed with [now static](https://zeit.sh/now)
-Check the MilanoJs Good Party 2017 talks in a very bad-look Polymer 2 web app [good-party.now.sh](https://good-party.now.sh)
+Check the [MilanoJs Good Party 2017](https://github.com/milano-js/good-party-2017) talks in a very bad-look Polymer 2 web app [good-party.now.sh](https://good-party.now.sh)
 
 ## Install the Polymer-CLI
 
