@@ -4,14 +4,42 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>pwa-check-good-party</title>
-    <meta name="description" content="pwa-check-good-party description">
+    <title>Check Milano Js Good Talks</title>
+    <meta name="description" content="Check the Milano Js Good Party Talks">
 
     <!-- See https://goo.gl/OOhYW5 -->
     <link rel="manifest" href="/manifest.json">
 
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="//unpkg.com/unfetch/dist/unfetch.umd.js"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch"></script>
+
+
+    <style>
+      html {
+        font-size: 12px
+      }
+      * {
+        box-sizing: border-box;
+        text-rendering: geometricPrecision
+      }
+      body {
+        font-size: 1rem;
+        line-height: 1.5rem;
+        margin: 0;
+        font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+        word-wrap: break-word
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+          line-height: 1.3em
+      }
+    </style>
 
     <link rel="import" href="/src/good-party/good-party.html">
   </head>

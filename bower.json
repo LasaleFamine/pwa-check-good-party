@@ -3,7 +3,8 @@
   "description": "Check the MilanoJs Good Party 2017 talks",
   "main": "index.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.0-rc.2"
+    "polymer": "Polymer/polymer#^2.0.0-rc.2",
+    "font-awesome": "^4.7.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#2.0-preview",

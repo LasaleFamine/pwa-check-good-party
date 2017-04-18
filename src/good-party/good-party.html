@@ -9,17 +9,87 @@
         display: block;
       }
 
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.75rem 0;
+        color: #778087
+      }
+
+      td,
+      th {
+        vertical-align: top;
+        border: 1px solid #ccc;
+        line-height: 15px;
+        padding: 10px
+      }
+
+      th {
+        font-size: 10px
+      }
+
+      td:first-child {
+        font-weight: 700;
+        color: #333
+      }
+
+      a {
+        cursor: pointer;
+        color: #1e88e5;
+        text-decoration: none;
+        border-bottom: 1px solid #1e88e5
+      }
+
+      a:hover {
+        background-color: #1e88e5;
+        color: #fff
+      }
+
+      .wrapper {
+        padding: 30px;
+      }
+
+      footer {
+        display: flex;
+        font-size: 14px;
+      }
+
+      @font-face {
+        font-family: 'FontAwesome';
+        src: url('../..bower_components/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0');
+        src: url('../..bower_components/font-awesome/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../..bower_components/font-awesome/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../..bower_components/font-awesome/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../..bower_components/font-awesome/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../..bower_components/font-awesome/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
+        font-weight: normal;
+        font-style: normal
+      }
+
+      .fa {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+      }
+
+      .fa-github:before {
+        content: "\f09b"
+      }
       /*
       Max width before this PARTICULAR table gets nasty
       This query will take effect for any screen smaller than 760px
       and also iPads specifically.
       */
-      @media
-      only screen and (max-width: 760px),
-      (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+      @media only screen and (max-width: 760px),
+      (min-device-width: 768px) and (max-device-width: 1024px) {
 
         /* Force table to not be like tables anymore */
-        table, thead, tbody, th, td, tr {
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
           display: block;
         }
 
@@ -30,7 +100,9 @@
           left: -9999px;
         }
 
-        tr { border: 1px solid #ccc; }
+        tr {
+          border: 1px solid #ccc;
+        }
 
         td {
           /* Behave  like a "row" */
@@ -54,30 +126,45 @@
         /*
         Label the data
         */
-        td:nth-of-type(1):before { content: "Title"; }
-        td:nth-of-type(2):before { content: "Count"; }
-        td:nth-of-type(3):before { content: "Link"; }
+        td:nth-of-type(1):before {
+          content: "Talk";
+        }
+        td:nth-of-type(2):before {
+          content: "Like Count";
+        }
       }
+
     </style>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Count</th>
-          <th>Link</th>
-        </tr>
-      </thead>
-      <tbody>
-        <template is="dom-repeat" items="[[reactions]]" as="reaction">
+    <div class="wrapper">
+      <header>
+        <h3>
+          <a href="https://github.com/milano-js/good-party-2017" target="_blank">Milano Js Good Party</a>
+        </h3>
+      </header>
+      <table>
+        <thead>
           <tr>
-            <td>[[reaction.title]]</td>
-            <td>[[reaction.reactions]]</td>
-            <td><a href$="[[reaction.url]]" target="_blank">[[reaction.url]]</a></td>
+            <th>Talk</th>
+            <th>Like Count</th>
           </tr>
-        </template>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <template is="dom-repeat" items="[[reactions]]" as="reaction">
+            <tr>
+              <td><a href$="[[reaction.url]]" target="_blank">[[reaction.title]]</a></td>
+              <td>[[reaction.reactions]]</td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+      <footer>
+        <a href="https://github.com/lasalefamine/pwa-check-good-party">
+          <i class="fa fa-github"></i>
+        </a>
+      </footer>
+    </div>
+
   </template>
 
   <script>
@@ -107,7 +194,7 @@
           })
         });
 
-        unfetch(request)
+        fetch(request)
           .then(res => res.json())
           .then(res => {
             const reactions = res
@@ -129,5 +216,6 @@
     }
 
     window.customElements.define(MyApplication.is, MyApplication);
+
   </script>
 </dom-module>
